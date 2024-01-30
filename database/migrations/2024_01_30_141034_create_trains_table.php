@@ -23,6 +23,7 @@ return new class extends Migration
             $table->tinyInteger('numero_carrozze')->unsigned();
             $table->tinyInteger('in_orario')->unsigned()->default(1);
             $table->tinyInteger('cancellato')->unsigned()->default(0);
+            $table->date('departure_date');
 
             $table->timestamps();
         });
