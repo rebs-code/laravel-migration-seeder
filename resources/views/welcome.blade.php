@@ -10,7 +10,45 @@
 </head>
 
 <body>
-    <h1>hello laravel</h1>
+    <header class="text-center">
+        <h1>Trains</h1>
+    </header>
+
+    <div class="container">
+        <h2>Complete List of All Trains</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Azienda</th>
+                    <th>Codice Treno</th>
+                    <th>Stazione di Partenza</th>
+                    <th>Data di Partenza</th>
+                    <th>Orario di Partenza</th>
+                    <th>Stazione di Arrivo</th>
+                    <th>Orario di Arrivo</th>
+                    <th>Stato</th>
+                    <th>Ritardo</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($trains as $train)
+                    <tr>
+                        <td>{{ $train['azienda'] }}</td>
+                        <td>{{ $train['codice_treno'] }}</td>
+                        <td>{{ $train['stazione_di_partenza'] }}</td>
+                        <td>{{ $train['departure_date'] }}</td>
+                        <td>{{ $train['orario_di_partenza'] }}</td>
+                        <td>{{ $train['stazione_di_arrivo'] }}</td>
+                        <td>{{ $train['orario_di_arrivo'] }}</td>
+                        <td>{{ $train['cancellato'] }}</td>
+                        <td>{{ $train['in_orario'] }}</td>
+
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
 </body>
 
 </html>
