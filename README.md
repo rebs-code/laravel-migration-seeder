@@ -1,3 +1,7 @@
+# Setting Up a Laravel Project with Database Integration
+
+## Project Implementation Steps
+
 - Link database in env file and add password
 
 - create model with name singular form of table name
@@ -60,4 +64,32 @@ in the down function I need to write the opposite, how to delete the update
 $table->dropColumn('column_name');
 
 - To delete a column, create a new migration with a descriptive name, then in the up function use the dropColumn method. In the down functrion, add the code to recreate the column. This is useful if you need to rollback the migration.
+
+- Once data has been inserted in the table via phpMyAdmin, I create a simple HTML structure in the welcome view. Then I code my controller to return all the data in the Trains table
+
+class PageController extends Controller
+{
+    function index()
+    {
+        $trains = Train::all();
+        
+        return view('welcome', compact('trains'));
+    }
+}
+
+- Now I can use a foreach loop to print all the trains. If I want to display only the trains departing today, I will use my controller to filter the database to select instead of *All*, only the trains where departing date is today
+
+class PageController extends Controller
+{
+    function index()
+    {
+        $trains = Train::all();
+        $today_trains = Train::where('departure_date', Carbon::today())->get();
+        return view('welcome', compact('trains', 'today_trains'));
+    }
+}
+
+I will then use a similar foreach loop to iterate across the results and print them on my welcome view. 
+
+
 
