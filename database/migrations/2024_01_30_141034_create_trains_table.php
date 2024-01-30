@@ -21,6 +21,7 @@ return new class extends Migration
             $table->time('orario_di_arrivo');
             $table->string('codice_treno', 20);
             $table->tinyInteger('numero_carrozze')->unsigned();
+            // could have used boolean type
             $table->tinyInteger('in_orario')->unsigned()->default(1);
             $table->tinyInteger('cancellato')->unsigned()->default(0);
             $table->date('departure_date');

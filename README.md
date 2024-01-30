@@ -28,3 +28,36 @@ php artisan migrate:rollback
 rollback will call the down function existing in the migration file. 
 
 - To create a table with the columns of our choice, after rollback, we go to the migration file of our table and inside the function up() define what are the columns of our table. 
+
+    public function up(): void
+    {
+        Schema::create('trains', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('azienda', 50);
+            $table->string('stazione_di_partenza', 100);
+            $table->string('stazione_di_arrivo', 100);
+            $table->time('orario_di_partenza');
+            $table->time('orario_di_arrivo');
+            $table->string('codice_treno', 20);
+            $table->tinyInteger('numero_carrozze')->unsigned();
+            // could have used boolean type
+            $table->tinyInteger('in_orario')->unsigned()->default(1);
+            $table->tinyInteger('cancellato')->unsigned()->default(0);
+            $table->date('departure_date');
+
+            $table->timestamps();
+        });
+    }
+
+- An alternative to update a table without rollback, it's the command 
+php artisan make:migration update_tablename_table --table=tablename
+
+This will create a new migration file where we can insert the new column also indicating the position:
+in the up function
+$table->string('string_name', 255)->after('column_name_after_which_to_position')
+in the down function I need to write the opposite, how to delete the update
+$table->dropColumn('column_name');
+
+- To delete a column, create a new migration with a descriptive name, then in the up function use the dropColumn method. In the down functrion, add the code to recreate the column. This is useful if you need to rollback the migration.
+
